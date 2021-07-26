@@ -20,30 +20,36 @@ import javax.persistence.Transient;
  *
  * @author gabriel.alves
  */
-
 @Entity
-@Table(name = "tb_categoy")
-public class Category implements Serializable {
-	
+@Table(name = "tb_product")
+public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     private String name;
+    private String description;
+    private Double price;
+    private String imgURL;
     
     @Transient
-    private Set<Product> products = new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
     
-    public Category(){
+    
+    public Product (){
         
     }
 
-    public Category(Long id, String name) {
+    public Product(Long id, String name, String description, Double price, String imgURL) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgURL = imgURL;
     }
+    
+    
 
     public Long getId() {
         return id;
@@ -61,17 +67,38 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    
-    public Set<Product> getProducts() {
-        return products;
+    public String getDescription() {
+        return description;
     }
 
-    
-    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -86,12 +113,14 @@ public class Category implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Category other = (Category) obj;
+        final Product other = (Product) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
+    
     
     
     
